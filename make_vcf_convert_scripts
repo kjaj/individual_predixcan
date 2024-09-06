@@ -1,0 +1,17 @@
+for chr in {1..22}
+do
+echo '#!/bin/bash
+#SBATCH --partition=day
+#SBATCH --mem=100g
+#SBATCH -t 200:00
+#SBATCH --cpus-per-task=4
+#SBATCH -o vcf.log
+
+ml PLINK
+
+plink2 --bfile /path/to/target/genotype/data/file_prefix_'${chr}' \
+    --snps-only \
+    --keep fam_file \
+  --recode vcf bgz \
+--out '${chr}'_filename' > vcf_convert_chr${chr}.sh
+done
