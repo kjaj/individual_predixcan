@@ -1,0 +1,18 @@
+ml miniconda
+conda activate imlabtools
+
+METAXCAN=/gpfs/gibbs/pi/huckins/software/MetaXcan/software
+DATA=/gpfs/gibbs/pi/huckins/software/MetaXcan/software/data/elastic_net_models
+
+chr=21 # can change to a loop if you want
+
+tissue=en_Brain_Amygdala # can also be looped if you have a list of tissues 
+
+python3 ${METAXCAN}/Predict.py \
+--model_db_path ${DATA}/${tissue}.db \
+--vcf_genotypes UKB_${chr}_white_british_10ksample.forTRS.vcf.gz \
+--vcf_mode genotyped \
+--prediction_output ${chr}_${tissue}_out.txt \
+--prediction_summary_output ${chr}_${tissue}_out_summary.txt \
+--verbosity 9 \
+--throw
