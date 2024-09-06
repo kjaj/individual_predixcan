@@ -1,0 +1,29 @@
+trait=trait_name
+
+# nb - prior to this, put all results into one file per tissue if not already
+# see imlab tutorial for phenotype file (pheno.txt) format etc
+
+while read line
+do
+for chr in {1..22}
+do
+echo '#!/bin/bash
+#SBATCH --partition=day
+#SBATCH --mem=200g
+#SBATCH -t 50:00
+#SBATCH --cpus-per-task=1
+#SBATCH -o '${line}'_predixcan2.log
+
+METAXCAN=/gpfs/gibbs/pi/huckins/software/MetaXcan/software
+DATA=/gpfs/gibbs/pi/huckins/software/MetaXcan/software/data/elastic_net_models
+
+python3 $METAXCAN/PrediXcanAssociation.py \
+--expression_file '${line}'_prediction_output.txt \
+--input_phenos_file pheno.txt \
+--input_phenos_column pheno_name \
+--output '${line}'_association_'${trait}'.txt \
+--verbosity 9 \
+--throw
+
+done
+done < tissue_list
