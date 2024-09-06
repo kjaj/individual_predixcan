@@ -1,0 +1,27 @@
+while read line
+do
+for chr in {1..22}
+do
+echo '#!/bin/bash
+#SBATCH --partition=day
+#SBATCH --mem=200g
+#SBATCH -t 50:00
+#SBATCH --cpus-per-task=1
+#SBATCH -o predixcan1.log
+
+METAXCAN=/gpfs/gibbs/pi/huckins/software/MetaXcan/software
+DATA=/gpfs/gibbs/pi/huckins/software/MetaXcan/software/data/elastic_net_models
+
+
+python3 ${METAXCAN}/Predict.py \
+--model_db_path ${DATA}/'${line}'.db \
+--vcf_genotypes genotype_file_'${chr}'.vcf.gz \
+--vcf_mode genotyped \
+--prediction_output '${chr}'_'${line}'_out.txt \
+--prediction_summary_output '${chr}'_'${line}'_out_summary.txt \
+--verbosity 9 \
+--throw' > ${chr}_${line}_predixcan.sh
+done 
+done < tissue_list
+
+# nb tissue_list = a file of all gtex tissue names 1 per line in the format en_tissue_name i.e. how the .db files look, without the .db part
