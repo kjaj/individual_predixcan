@@ -1,0 +1,8 @@
+# Steps:
+# - make sure target genotype data is in vcf.gz file format
+# - predixcan step1 - impute GREX 
+# - predixcan step2 - test for association GREX-phenotype
+
+# generate scripts (plink) to convert formats if needed
+# this is chrom-by-chrom
+# fam_file: if there is a particular subset of people in target data that you want to keep (not needed if using everyone)
