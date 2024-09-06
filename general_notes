@@ -6,3 +6,15 @@
 # generate scripts (plink) to convert formats if needed
 # this is chrom-by-chrom
 # fam_file: if there is a particular subset of people in target data that you want to keep (not needed if using everyone)
+
+
+# Step 1: impute GREX
+
+
+# nb 'imlabtools' conda environment can be created from the .yaml included in the metaxcan software folders, on mccleary this is the most straightforward way to make predixcan run (don't need to make again if you already have it from doing S-predixcan)
+
+# cannot get the conda env to work inside a shell script as standard BUT it works fine if you actiavte the environment, then queue all (1-22) the predixcan scripts - just have to be in that conda env when each scripts starts (i think)
+
+# can also just run on cmd line but some of the chroms will take a while, depending on N also, upwards of 45-1hr 
+
+# can be time consuming if doing all GTEx tissues
