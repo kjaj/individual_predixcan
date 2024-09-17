@@ -1,6 +1,7 @@
 # Steps:
 # - make sure target genotype data is in vcf.gz file format
 # - predixcan step1 - impute GREX 
+# - predixcan step1.5 - make sure the phenotype file IDs match and are in same order as IDs in each expression output file from step1
 # - predixcan step2 - test for association GREX-phenotype
 
 # generate scripts (plink) to convert formats if needed
