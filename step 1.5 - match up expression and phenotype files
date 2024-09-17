@@ -1,0 +1,40 @@
+# - not in the manual but predixcan expects phenotype file IDs and expression output IDs to 1. match and 2. be in the same order in terms of IIDs
+
+rm(list=ls())
+require(data.table)
+
+trait<-""
+tissue<-""
+dat<-data.frame(fread(paste0("en_",tissue,"_out.txt")))
+pheno<-data.frame(fread(paste0(trait,"pheno.txt")))
+
+
+dim(dat)
+dim(pheno)
+
+# check IDs
+
+length(which(pheno$IID %in% dat$IID==T))
+
+# fix phenotype file IDs to match if needed
+
+# cut down so same people are in each file type (expression, phenotype)
+# list longer file first 
+
+shared_ID<-merge(pheno,dat, by="IID")
+
+length(shared_ID)
+
+shared_ID<-shared_ID$IID
+
+pheno<-pheno[pheno$IID %in% shared_ID,]
+dat<-dat[dat$IID %in% shared_ID,]
+
+
+# order
+pheno<-pheno[order(pheno$IID),]
+dat<-dat[order(dat$IID),]
+
+# save
+write.table(dat,paste0("en_",tissue,"_out_fixed.txt"),row.names=F,col.names=T,quote=F,sep="\t")
+write.table(pheno,paste0(trait,"pheno_fixed.txt"),row.names=F,col.names=T,quote=F,sep="\t")
